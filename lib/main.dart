@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jkb_bloc/counter_bloc/counter_bloc.dart';
+import 'package:jkb_bloc/todo/bloc/todo_bloc.dart';
+import 'package:jkb_bloc/todo/bloc/todo_event.dart';
+import 'package:jkb_bloc/todo/todo_screen.dart';
 
-import 'package:jkb_bloc/counter_page.dart';
-import 'package:jkb_bloc/products/bloc/product_bloc.dart';
-import 'package:jkb_bloc/products/bloc/product_event.dart';
-import 'package:jkb_bloc/products/product_screen.dart';
-
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -16,15 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProductBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => TodoBloc(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const ProductScreen(),
+        home: const TodoScreen(),
       ),
     );
   }
